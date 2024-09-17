@@ -1,5 +1,16 @@
 //h1 IMPORTS & DECLARATIONS
-const dotenv = require('dotenv').config();
+const fs = require('node:fs'); // allows file to read other files
+const path = require('node:path'); // interprets & constructs filepaths
+const dotenv = require('dotenv');
+const {
+    Client,
+    Collection, // extends Map class for Discord
+    Events,
+    GatewayIntentBits
+} = require('discord.js');
+
+//h2 Configure .env
+dotenv.config();
 const keys = {
     discord: {
         id: process.env.DISCORD_APP_ID,
@@ -8,20 +19,38 @@ const keys = {
     },
     openai: { token: process.env.OPENAI_TOKEN, }
 };
-const { Client, Events, GatewayIntentBits } = require('discord.js');
 
-//h1 SETUP
+//h1 CLIENT
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-client.once(Events.ClientReady, readyClient => { // n1 Confirm client is ready in terminal
+client.once(Events.ClientReady, readyClient => {
     console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
-client.login(keys.discord.token); // n1 Login using discord token
+client.login(keys.discord.token);
 
-//h1 LISTENERS
+//h1 Command Handler
+client.commands = new Collection();
 
-/* Set up a message event listener
-    - client.on('messageCreate', callback)
-    1. individual command files
-    2. command handler
-    3. command deployment script
-*/
+//h2 Build Command Collection
+const comPath = path.join(__dirname, 'commands');
+// return this directory + "commands"
+
+const comSubs = fs.readdirSync(comPath);
+// return array of subfolders
+
+for (const sub of comSubs) { /* return Collection of all files within /discord/commands */
+	const subPath = path.join(comPath, sub);
+    const subFiles = fs.readdirSync(subPath).filter(
+        file => file.endsWith('.js')
+    );
+	for (const file of subFiles) {
+		const filePath = path.join(subPath, file);
+		const com = require(filePath);
+		if ('data' in com && 'execute' in com) {
+			client.commands.set(com.data.name, com);
+		} else {
+			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+		}
+	}
+};
+
+console.log(client.commands);
