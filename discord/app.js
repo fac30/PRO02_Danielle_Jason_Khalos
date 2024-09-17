@@ -37,18 +37,23 @@ const comPath = path.join(__dirname, 'commands');
 const comSubs = fs.readdirSync(comPath);
 // return array of subfolders
 
-for (const sub of comSubs) { /* return Collection of all files within /discord/commands */
+for (const sub of comSubs) {
 	const subPath = path.join(comPath, sub);
-    const subFiles = fs.readdirSync(subPath).filter(
-        file => file.endsWith('.js')
-    );
+    const subFiles = fs.readdirSync(subPath)
+        .filter(
+            file => file.endsWith('.js')
+        );
 	for (const file of subFiles) {
-		const filePath = path.join(subPath, file);
+        const filePath = path
+            .join(subPath, file);
 		const com = require(filePath);
 		if ('data' in com && 'execute' in com) {
-			client.commands.set(com.data.name, com);
+            client.commands
+                .set(com.data.name, com);
 		} else {
-			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+            console.log(`[WARNING]
+                The command at ${filePath} is missing a required "data" or "execute" property.
+            `);
 		}
 	}
 };
