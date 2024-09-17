@@ -24,3 +24,5 @@ async function chatPrompt() {
 }
 
 chatPrompt();
+
+module.exports = {chatPrompt}

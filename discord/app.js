@@ -22,9 +22,22 @@ const client = new Client({
 });
 
 // n1 Confirm client is ready in terminal
-client.once(Events.ClientReady, readyClient => {
-    console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-});
+module.exports = {
+    listenToMessages: (onMessage) => {
+        client.once(Events.ClientReady, readyClient => {
+            console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+        });
 
-// n1 Login using discord token
-client.login(keys.discord.token);
+        client.on(Events.MessageCreate, (message) => {
+            if (!message.author.bot) {
+                // Send the message content to the central handler
+                onMessage(message.content, (response) => {
+                    message.reply(response);  // Send the response back to the Discord channel
+                });
+            }
+        });
+
+        // n1 Login using discord token
+        client.login(keys.discord.token);
+    }
+};
