@@ -7,7 +7,16 @@ const com = new SlashCommandBuilder().setName(
 );
     
 const rep = async function execute(interaction) {
-	await interaction.reply('Pong!')
-}
+    await interaction.reply('Pong!')
+};
 
-module.exports = { com, rep };
+module.exports = { data: com, execute: rep };
+
+/* module.exports = {
+    data: new SlashCommandBuilder().setName(
+        'user'
+    ).setDescription(
+        'Provides information about the user.'
+    ),
+    execute: rep
+} */
