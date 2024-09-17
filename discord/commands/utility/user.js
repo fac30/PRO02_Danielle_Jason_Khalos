@@ -2,13 +2,13 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('froth')
+        .setName('creeper')
         .setDescription(
-            'Shout at clouds.'
+            'Obsessively stare at user'
         ),
     async execute(interaction) {
         await interaction.reply(
-            'Pong!'
-        )
+            `This command was run by ${interaction.user.username}, who joined on ${interaction.member.joinedAt}.`
+        );
     },
 };

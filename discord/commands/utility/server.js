@@ -2,13 +2,13 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('froth')
+        .setName('linger')
         .setDescription(
-            'Shout at clouds.'
+            'Peer through windows at user'
         ),
     async execute(interaction) {
         await interaction.reply(
-            'Pong!'
-        )
+            `This server is ${interaction.guild.name} and has ${interaction.guild.memberCount} members.`
+        );
     },
 };

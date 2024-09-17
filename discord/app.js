@@ -30,7 +30,7 @@ client.login(keys.discord.token);
 //h1 Command Handler
 client.commands = new Collection();
 
-//h2 Build Command Collection
+//h2 Command Collection
 const comPath = path.join(__dirname, 'commands');
 // return this directory + "commands"
 
@@ -53,4 +53,20 @@ for (const sub of comSubs) { /* return Collection of all files within /discord/c
 	}
 };
 
+/* 
+    const comList = [];
+    for (const com of client.commands) {
+        comList.push({
+            name: com.data.name,
+            description: com.data.description
+        });
+    }; 
+*/
+
 console.log(client.commands);
+
+//h2 Command Handler
+client.on(Events.InteractionCreate, interaction => {
+	if (!interaction.isChatInputCommand()) return;
+	console.log(interaction);
+});
