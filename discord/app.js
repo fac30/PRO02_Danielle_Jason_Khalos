@@ -1,6 +1,4 @@
-// h1 IMPORTS & DECLARATIONS
-
-// n1 Secrets
+//h1 IMPORTS & DECLARATIONS
 const dotenv = require('dotenv').config();
 const keys = {
     discord: {
@@ -10,21 +8,20 @@ const keys = {
     },
     openai: { token: process.env.OPENAI_TOKEN, }
 };
-
-// n1 Libraries
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 
-// h1 SETUP
-
-// n1 Create Client
-const client = new Client({
-    intents: [GatewayIntentBits.Guilds]
-});
-
-// n1 Confirm client is ready in terminal
-client.once(Events.ClientReady, readyClient => {
+//h1 SETUP
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.once(Events.ClientReady, readyClient => { // n1 Confirm client is ready in terminal
     console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
+client.login(keys.discord.token); // n1 Login using discord token
 
-// n1 Login using discord token
-client.login(keys.discord.token);
+//h1 LISTENERS
+
+/* Set up a message event listener
+    - client.on('messageCreate', callback)
+    1. individual command files
+    2. command handler
+    3. command deployment script
+*/
