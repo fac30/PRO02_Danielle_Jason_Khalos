@@ -1,2 +1,0 @@
-# Discord API Guide
-
