@@ -44,4 +44,4 @@ tests.listenToMessages(async (message, reply) => {
   }
 });
 
-module.exports = { discordString };
+module.exports = { bridge };
