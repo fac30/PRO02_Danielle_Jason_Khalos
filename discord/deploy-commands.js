@@ -14,7 +14,6 @@ const keys = {
 const { REST, Routes } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const comList = require("./list-commands");
 
 function buildComArr() {
 	const commands = [];
