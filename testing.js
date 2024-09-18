@@ -2,11 +2,6 @@ const dotenv = require('dotenv').config();
 
 const serverBridge = require('app.js');
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_TOKEN
-});
-
-
 module.exports = {
   // Simulates Discord messages and the response function
   listenToMessages: async (handleMessage) => {
