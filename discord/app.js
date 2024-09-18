@@ -1,7 +1,8 @@
 //h1 IMPORTS & DECLARATIONS
 const fs = require('node:fs'); // allows file to read other files
 const path = require('node:path'); // interprets & constructs filepaths
-const dotenv = require('dotenv');
+
+//h2 Configure Discord
 const {
     Client,
     Collection, // extends Map class for Discord
@@ -10,11 +11,13 @@ const {
 } = require('discord.js');
 
 //h2 Configure .env
+const dotenv = require('dotenv');
 dotenv.config();
 const keys = {
     discord: {
         id: process.env.DISCORD_APP_ID,
         public: process.env.DISCORD_PUBLIC_KEY,
+        server: process.env.DISCORD_SERVER,
         token: process.env.DISCORD_TOKEN,
     },
     openai: { token: process.env.OPENAI_TOKEN, }
