@@ -41,13 +41,13 @@ function buildComArr() {
 
 const commands = buildComArr();
 
-const rest = new REST().setToken(token);
+const rest = new REST().setToken(keys.discord.token);
 
 (async () => {
 	try {
 		console.log(`Started refreshing ${commands.length} application (/) commands.`);
 		const data = await rest.put(
-			Routes.applicationGuildCommands(clientId, guildId),
+			Routes.applicationGuildCommands(keys.discord.id, keys.discord.server),
 			{ body: commands },
 		);
 		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
