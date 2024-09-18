@@ -11,7 +11,10 @@ const keys = { //discord keys
   }
 };
 
-function discordString(string) {
+function bridge(question) {
+  // send question to openAI/app.js
+  // await response
+  // return response
   reply(openAIResponse);
 }
 
