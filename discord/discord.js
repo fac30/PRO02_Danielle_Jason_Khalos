@@ -24,14 +24,10 @@ const {
 } = require('discord.js');
 
 // h1 SETUP
-// n1 Create Client
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
-// n1 Confirm client is ready in terminal
 client.once(Events.ClientReady, readyClient => {
     console.log(`${readyClient.user.tag} ready`);
 });
-
 client.login(keys.discord.token);
 
 //h1 Command Handler
@@ -54,25 +50,15 @@ for (const sub of comSubs) {
             console.log(`${filePath} lacks "data"/"execute" property.`);
 		}
 	}
+    console.info(client.commands);
 };
 
-/* 
-    const comList = [];
-    for (const com of client.commands) {
-        comList.push({
-            name: com.data.name,
-            description: com.data.description
-        });
-    }; 
-*/
-
-console.log(client.commands);
-
 //h2 Command Handler
+//n1 When an interaction happens, check if it's a command. If yes, do execute
 client.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand()) return;
+    if (!interaction.isChatInputCommand()) { return };
 
-	const command = interaction.client.commands.get(interaction.commandName);
+    const command = interaction.client.commands.get(interaction.commandName);
 
 	if (!command) {
 		console.error(`No command matching ${interaction.commandName} was found.`);
@@ -95,7 +81,6 @@ client.on(Events.InteractionCreate, async interaction => {
 //h1 EXPORTS
 module.exports = {
     listenToMessages: (onMessage) => {
-
         client.on(Events.MessageCreate, (message) => {
             if (!message.author.bot) {
                 // Send the message content to the central handler
