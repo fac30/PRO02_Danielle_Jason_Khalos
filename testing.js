@@ -9,9 +9,9 @@ module.exports = {
     
     // Simulate a reply function
     
-    const reply = (response) => {
+    const reply = (chatResponse) => {
       // console.log(typeof reply());
-      console.log('Replying with:', response);
+      console.log('Replying with:', chatResponse);
     }
 
     // Call the handler function with the test message and reply function

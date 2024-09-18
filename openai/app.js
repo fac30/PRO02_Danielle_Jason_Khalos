@@ -21,6 +21,7 @@ async function chatPrompt(message) {
 
     const chatResponse = completion.choices[0].message.content;
     console.log("Assistant Response:", chatResponse);
+    return chatResponse;
   } catch (error) {
     console.error("OpenAI Error:", error);
     return "I'm sorry, I encountered an error while processing your request.";
