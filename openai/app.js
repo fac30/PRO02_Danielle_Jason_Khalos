@@ -26,7 +26,7 @@ async function chatPrompt(message) {
 
     const chatResponse = completion.choices[0].message.content;
 
-    conversationHistory.push({"role": "system", "content": systemMessage});
+    conversationHistory.push({"role": "assistant", "content": chatResponse});
 
     console.log("Assistant Response:", chatResponse);
 
