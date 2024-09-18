@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config();
 const openAiKey = process.env.OPENAI_TOKEN;
 console.log('OpenAI Token:', OPENAI_TOKEN);
 
-const discord = require('./discord/app');
+const discord = require('./testing');
 const openai = require('./openai/app');
 
 // Listen for Discord messages
