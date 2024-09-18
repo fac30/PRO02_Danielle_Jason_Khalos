@@ -25,13 +25,11 @@ const {
 
 // h1 SETUP
 // n1 Create Client
-const client = new Client({
-    intents: [GatewayIntentBits.Guilds]
-});
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 // n1 Confirm client is ready in terminal
 client.once(Events.ClientReady, readyClient => {
-    console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+    console.log(`${readyClient.user.tag} ready`);
 });
 
 client.login(keys.discord.token);
@@ -41,28 +39,19 @@ client.commands = new Collection();
 
 //h2 Command Collection
 const comPath = path.join(__dirname, 'commands');
-// return this directory + "commands"
-
 const comSubs = fs.readdirSync(comPath);
-// return array of subfolders
 
 for (const sub of comSubs) {
 	const subPath = path.join(comPath, sub);
     const subFiles = fs.readdirSync(subPath)
-        .filter(
-            file => file.endsWith('.js')
-        );
+        .filter(file => file.endsWith('.js'));
 	for (const file of subFiles) {
-        const filePath = path
-            .join(subPath, file);
+        const filePath = path.join(subPath, file);
 		const com = require(filePath);
 		if ('data' in com && 'execute' in com) {
-            client.commands
-                .set(com.data.name, com);
+            client.commands.set(com.data.name, com);
 		} else {
-            console.log(`[WARNING]
-                The command at ${filePath} is missing a required "data" or "execute" property.
-            `);
+            console.log(`${filePath} lacks "data"/"execute" property.`);
 		}
 	}
 };
