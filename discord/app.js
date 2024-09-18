@@ -21,12 +21,13 @@ const client = new Client({
     intents: [GatewayIntentBits.Guilds]
 });
 
+client.once(Events.ClientReady, readyClient => {
+    console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+});
+
 // n1 Confirm client is ready in terminal
 module.exports = {
     listenToMessages: (onMessage) => {
-        client.once(Events.ClientReady, readyClient => {
-            console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-        });
 
         client.on(Events.MessageCreate, (message) => {
             if (!message.author.bot) {
