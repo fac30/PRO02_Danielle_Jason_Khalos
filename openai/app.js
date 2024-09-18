@@ -6,12 +6,14 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_TOKEN
 });
 
+let systemMessage = "You are a helpful assistant.";
+
 async function chatPrompt(message) {
   try {
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
-        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "system", "content": systemMessage},
         {"role": "user", "content": message}
       ],
       temperature: 0.7,
