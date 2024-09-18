@@ -2,14 +2,6 @@
 const fs = require('node:fs'); // allows file to read other files
 const path = require('node:path'); // interprets & constructs filepaths
 
-//h2 Configure Discord
-const {
-    Client,
-    Collection, // extends Map class for Discord
-    Events,
-    GatewayIntentBits
-} = require('discord.js');
-
 //h2 Configure .env
 const dotenv = require('dotenv');
 dotenv.config();
@@ -23,11 +15,25 @@ const keys = {
     openai: { token: process.env.OPENAI_TOKEN, }
 };
 
-//h1 CLIENT
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+//h2 Configure Discord
+const {
+    Client,
+    Collection, // extends Map class for Discord
+    Events,
+    GatewayIntentBits
+} = require('discord.js');
+
+// h1 SETUP
+// n1 Create Client
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds]
+});
+
+// n1 Confirm client is ready in terminal
 client.once(Events.ClientReady, readyClient => {
     console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
+
 client.login(keys.discord.token);
 
 //h1 Command Handler
@@ -95,3 +101,19 @@ client.on(Events.InteractionCreate, async interaction => {
 		}
 	}
 });
+
+
+//h1 EXPORTS
+module.exports = {
+    listenToMessages: (onMessage) => {
+
+        client.on(Events.MessageCreate, (message) => {
+            if (!message.author.bot) {
+                // Send the message content to the central handler
+                onMessage(message.content, (response) => {
+                    message.reply(response);  // Send the response back to the Discord channel
+                });
+            }
+        });
+    }
+};
