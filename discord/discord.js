@@ -25,15 +25,11 @@ const {
 
 // h1 SETUP
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-client.once(Events.ClientReady, readyClient => {
-    console.log(`${readyClient.user.tag} ready`);
-});
 client.login(keys.discord.token);
 
-//h1 Command Handler
+//h1 COMMANDS
 client.commands = new Collection();
 
-//h2 Command Collection
 const comPath = path.join(__dirname, 'commands');
 const comSubs = fs.readdirSync(comPath);
 
@@ -41,6 +37,7 @@ for (const sub of comSubs) {
 	const subPath = path.join(comPath, sub);
     const subFiles = fs.readdirSync(subPath)
         .filter(file => file.endsWith('.js'));
+    console.log(`Commands: ${subFiles}`);
 	for (const file of subFiles) {
         const filePath = path.join(subPath, file);
 		const com = require(filePath);
@@ -50,33 +47,29 @@ for (const sub of comSubs) {
             console.log(`${filePath} lacks "data"/"execute" property.`);
 		}
 	}
-    console.info(client.commands);
 };
+console.group(`Discord Command Handler`);
+console.info(client.commands);
+console.log(`Commands compiled`);
+console.groupEnd();
 
-//h2 Command Handler
-//n1 When an interaction happens, check if it's a command. If yes, do execute
-client.on(Events.InteractionCreate, async interaction => {
-    if (!interaction.isChatInputCommand()) { return };
+//h1 EVENTS
+const evePath = path.join(__dirname, 'events');
+const eveFiles = fs.readdirSync(evePath)
+    .filter(file => file.endsWith('.js'));
 
-    const command = interaction.client.commands.get(interaction.commandName);
+console.log(`Events: ${eveFiles}`);
 
-	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
-		return;
+for (const file of eveFiles) {
+	const filePath = path.join(evePath, file);
+	const event = require(filePath);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
 	}
-
-	try {
-		await command.execute(interaction);
-	} catch (error) {
-		console.error(error);
-		if (interaction.replied || interaction.deferred) {
-			await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
-		} else {
-			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-		}
-	}
-});
-
+}
+console.log(`Events compiled`);
 
 //h1 EXPORTS
 module.exports = {
