@@ -47,9 +47,11 @@ for (const sub of comSubs) {
             console.log(`${filePath} lacks "data"/"execute" property.`);
 		}
 	}
-    /* console.info(client.commands); */
 };
+console.group(`Discord Command Handler`);
+console.info(client.commands);
 console.log(`Commands compiled`);
+console.groupEnd();
 
 //h1 EVENTS
 const evePath = path.join(__dirname, 'events');
