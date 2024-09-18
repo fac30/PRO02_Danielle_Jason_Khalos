@@ -22,9 +22,8 @@ async function chatPrompt() {
     console.log("Assistant Response:", chatResponse);
   } catch (error) {
     console.error("Error:", error);
+    throw error;
   }
 }
 
-chatPrompt();
-
-module.exports = {chatPrompt}
+module.exports = { chatPrompt };
