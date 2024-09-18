@@ -25,6 +25,4 @@ async function chatPrompt(message) {
   }
 }
 
-//chatPrompt();
-
-module.exports = {chatPrompt}
+module.exports = { chatPrompt };
