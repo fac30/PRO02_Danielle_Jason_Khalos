@@ -1,6 +1,6 @@
 const dotenv = require('dotenv').config();
 
-const serverBridge = require('app.js');
+const serverBridge = require('./app');
 
 module.exports = {
   // Simulates Discord messages and the response function

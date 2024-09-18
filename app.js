@@ -1,7 +1,7 @@
 const dotenv = require('dotenv').config();
 
 const openAiKey = process.env.OPENAI_TOKEN;
-console.log('OpenAI Token:', OPENAI_TOKEN);
+console.log('OpenAI Token:', openAiKey);
 
 const discord = require('./testing');
 const openai = require('./openai/app');
