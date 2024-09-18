@@ -1,6 +1,7 @@
 const dotenv = require('dotenv').config();
 
 const openAiKey = process.env.OPENAI_TOKEN;
+
 const keys = { //discord keys
     discord: {
         id: process.env.DISCORD_APP_ID,
@@ -9,7 +10,8 @@ const keys = { //discord keys
         token: process.env.DISCORD_TOKEN,
     }
 };
-console.log('OpenAI Token:', openAiKey);
+
+
 
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 
