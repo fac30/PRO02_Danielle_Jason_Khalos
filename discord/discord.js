@@ -24,14 +24,8 @@ const {
 } = require('discord.js');
 
 // h1 SETUP
-console.group(`========= discord.js: setup =========`);
-console.log(`discord.js: ABOUT TO CREATE CLIENT`);
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-console.log(`discord.js: CREATED CLIENT`);
-console.log(`discord.js: ABOUT TO LOG IN`);
 client.login(keys.discord.token);
-console.log(`discord.js: LOGGED IN`);
-console.groupEnd();
 
 //h1 COMMANDS
 console.group(`========= discord.js: commands =========`)
