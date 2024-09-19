@@ -29,6 +29,7 @@ async function chatPrompt(message) {
     conversationHistory.push({"role": "assistant", "content": chatResponse});
 
     console.log("Assistant Response:", chatResponse);
+    return chatResponse;
 
   } catch (error) {
     console.error("OpenAI Error:", error);
