@@ -24,33 +24,50 @@ const {
 } = require('discord.js');
 
 // h1 SETUP
+console.group(`========= discord.js: setup =========`);
+console.log(`discord.js: ABOUT TO CREATE CLIENT`);
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+console.log(`discord.js: CREATED CLIENT`);
+console.log(`discord.js: ABOUT TO LOG IN`);
 client.login(keys.discord.token);
+console.log(`discord.js: LOGGED IN`);
+console.groupEnd();
 
 //h1 COMMANDS
+console.group(`========= discord.js: commands =========`)
+console.log(`discord.js: ABOUT TO CREATE COLLECTION `);
 client.commands = new Collection();
 
 const comPath = path.join(__dirname, 'commands');
 const comSubs = fs.readdirSync(comPath);
 
+console.group(`============ discord.js: Command Pathbuilder ============`);
 for (const sub of comSubs) {
+    console.group(`============ discord.js: ${sub} Subfolder ============`);
 	const subPath = path.join(comPath, sub);
     const subFiles = fs.readdirSync(subPath)
         .filter(file => file.endsWith('.js'));
-    console.log(`Commands: ${subFiles}`);
-	for (const file of subFiles) {
+    console.log(`discord.js 47: Commands: ${subFiles}`);
+    for (const file of subFiles) {
+        console.group(`============ discord.js: ${sub}/${file} ============`);
         const filePath = path.join(subPath, file);
 		const com = require(filePath);
 		if ('data' in com && 'execute' in com) {
             client.commands.set(com.data.name, com);
-		} else {
-            console.log(`${filePath} lacks "data"/"execute" property.`);
-		}
-	}
+        } else {
+            const d = 'data' in com;
+            const e = 'execute' in com;
+            console.group(`========= discord.js: ${file} =========`);
+            console.log(`has data: ${d}`);
+            console.log(`has execute: ${e}`);
+            console.groupEnd();
+        }
+        console.groupEnd();
+    }
+    console.groupEnd();
 };
-console.group(`Discord Command Handler`);
-console.info(client.commands);
-console.log(`Commands compiled`);
+console.log(`discord.js: Paths Built`);
+console.groupEnd();
 console.groupEnd();
 
 //h1 EVENTS
@@ -58,6 +75,7 @@ const evePath = path.join(__dirname, 'events');
 const eveFiles = fs.readdirSync(evePath)
     .filter(file => file.endsWith('.js'));
 
+console.group(`============ discord.js: Event Handler ============`);
 console.log(`Events: ${eveFiles}`);
 
 for (const file of eveFiles) {
@@ -69,7 +87,8 @@ for (const file of eveFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
-console.log(`Events compiled`);
+console.log(`discord.js: Events compiled`);
+console.groupEnd();
 
 //h1 EXPORTS
 module.exports = {
