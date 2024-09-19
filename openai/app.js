@@ -11,8 +11,6 @@ let conversationHistory = [
   { role: "system", content: "You are a helpful assistant." }
 ];
 
-let systemMessage = "You are a helpful assistant.";
-
 async function chatPrompt(message) {
 
   conversationHistory.push({"role": "user", "content": message})
