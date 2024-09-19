@@ -15,7 +15,9 @@ module.exports = {
         ),
     async execute(interaction) {
         /* interaction.reply(`Okay, let me think.`); */
-        const question = await interaction.options.getString('question');
-        await interaction.followUp(bridge(question));
+        await interaction.deferReply();
+        const question = interaction.options.getString('question');
+        const reply = await bridge(question);
+        await interaction.editReply(reply);
     },
 };
