@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
+const { server } = require('../../../app');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,8 +12,7 @@ module.exports = {
     async execute(interaction) {
         const question = interaction.options.getString('question');
         await interaction.reply(`Okay, let me think.`);
-        // the bot must export the message that the user has written
-        // the bot must import a response from elsewhere in my server
-        await interaction.followUp(`I have thought.`);
+        const response = await server.bridge(question);
+        await interaction.followUp(response);
     },
 };
