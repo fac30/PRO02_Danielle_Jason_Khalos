@@ -32,7 +32,7 @@ function bridge(question) {
 }
 
 //h1 Starts Bot - DO NOT TOUCH
-console.group(`========= app.js discord setup =========`);
+/* console.group(`========= app.js discord setup =========`);
 console.log(`app.js ABOUT TO CREATE CLIENT`);
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 console.log(`app.js CREATED CLIENT`);
@@ -42,10 +42,10 @@ client.once(Events.ClientReady, readyClient => {
 console.log(`app.js ABOUT TO LOG IN`);
 client.login(keys.discord.token);
 console.log(`app.js LOGGED IN`);
-console.groupEnd();
+console.groupEnd(); */
 
 //h1 Listen for Discord messages
-tests.listenToMessages(async (message, reply) => {
+/* tests.listenToMessages(async (message, reply) => {
   console.group(`========= app.js: tests.listenToMessages =========`);
   try {
     // Pass the message to OpenAI and get a response
@@ -57,6 +57,6 @@ tests.listenToMessages(async (message, reply) => {
     console.error("Error while processing OpenAI request:", error);
   }
   console.groupEnd();
-});
+}); */
 
 module.exports = { bridge };
