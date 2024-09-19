@@ -5,7 +5,10 @@ const serverBridge = require('./app');
 module.exports = {
   // Simulates Discord messages and the response function
   listenToMessages: async (handleMessage) => {
-    const testMessage = "What is the capital of France?"; // Example test message
+    const testMessage = ["What is the capital of France?",
+      "What is its population?",
+      "What are its main attractions"
+    ]; // Example test message
     
     // Simulate a reply function
     
@@ -15,6 +18,8 @@ module.exports = {
     }
 
     // Call the handler function with the test message and reply function
-    await handleMessage(testMessage, reply);
+    for (message of testMessage) {
+    await handleMessage(message, reply);
   }
+}
 };
