@@ -14,14 +14,8 @@ module.exports = {
             .setRequired(true)
         ),
     async execute(interaction) {
-        /* const question = interaction.options.getString('question');
-        await interaction.reply(`Okay, let me think.`);
-        const response = await server.bridge(question);
-        await interaction.followUp(response); */
-        const question = Promise.resolve(interaction.options.getString('question'))
-            .then(interaction.reply(`Okay, let me think.`))
-            .then(response = await bridge(question))
-            .then(interaction.followUp(response));
+        /* interaction.reply(`Okay, let me think.`); */
+        const question = await interaction.options.getString('question');
+        await interaction.followUp(bridge(question));
     },
 };
-console.log(`askbot.js: post export`)

@@ -22,12 +22,12 @@ async function chatPrompt(message) {
       temperature: 0.7,
     });
 
-    const chatResponse = completion.choices[0].message.content;
+    const chatResponse = await completion.choices[0].message.content;
 
     conversationHistory.push({"role": "assistant", "content": chatResponse});
 
     console.log("Assistant Response:", chatResponse);
-    return chatResponse;
+    await chatResponse;
 
   } catch (error) {
     console.error("OpenAI Error:", error);
