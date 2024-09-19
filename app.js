@@ -1,6 +1,3 @@
-console.group(`========= app.js: imports =========`);
-console.log(`app.js: require keys`);
-
 const { chatPrompt } = require('./openai/app');
 const tests = require('./testing');
 
