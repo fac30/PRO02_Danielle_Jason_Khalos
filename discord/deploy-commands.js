@@ -34,7 +34,7 @@ function buildComArr() {
 			console.group(`============== deploy-commands.js: ${file} command ==============`);
 			const filePath = path.join(subPath, file);
 			console.log(`deploy-commands.js: found? ${filePath != null}`);
-			console.log(`IF IT LOGS FROM ANOTHER FILE AFTER THIS, THE PROBLEM IS HERE the fucking prick`)
+			console.log(`askbot.js: breadcrumb`)
 			const com = require(filePath);
 			console.log(`deploy-commands.js: ${com}`);
 			if ('data' in com && 'execute' in com) {
